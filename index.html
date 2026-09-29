@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Premium Animated Tabs</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient( 135deg, #0f172a, #243b80, #111827);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tab-indicator {
+            position: absolute;
+            background: linear-gradient( 135deg, #ffffff, #dbeafe);
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+        }
+        
+        .tab {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .tab.active {
+            color: #293b80;
+            font-weight: 700;
+        }
+        
+        .tab:not(.active) {
+            color: #cbd5e1;
+        }
+        
+        .tab:not(.active):hover {
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: contentReveal 0.55s ease both;
+        }
+        
+        @keyframes contentReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+        
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #818cf8;
+            filter: blur(120px);
+            opacity: 0.25;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center
+             justify-center p-4 sm:p-8
+             overflow-x-hidden">
+
+    <div class="glow top-0 left-0"></div>
+    <div class="glow bottom-0 right-0"></div>
+
+    <main class="relative w-full max-w-2xl">
+
+        <!-- Heading -->
+        <div class="text-center mb-10">
+
+            <span class="inline-block px-4 py-2
+                         rounded-full bg-white/10
+                         border border-white/20
+                         text-indigo-200 text-xs
+                         font-bold tracking-[3px]
+                         mb-5">
+                INTERACTIVE COMPONENT
+            </span>
+
+            <h1 class="text-3xl sm:text-5xl
+                       font-extrabold text-white
+                       tracking-tight mb-4">
+                Explore
+                <span class="text-indigo-300">
+                    Bangladesh
+                </span>
+            </h1>
+
+            <p class="text-slate-300">
+                Discover the beauty of our cities
+            </p>
+
+        </div>
+
+        <!-- Main Glass Card -->
+        <div class="glass rounded-3xl p-3 sm:p-5">
+
+            <!-- Tabs -->
+            <div id="tab-header" role="tablist" aria-label="Select a city" class="header relative grid grid-cols-4
+                        gap-1 bg-white/10 rounded-2xl
+                        p-1.5 mb-5">
+
+                <div id="indicator" class="tab-indicator"></div>
+
+                <button type="button" role="tab" id="tab-dhaka" aria-controls="panel-dhaka" aria-selected="true" class="tab active py-4 px-1
+                               rounded-xl text-xs
+                               sm:text-sm cursor-pointer">
+                    Dhaka
+                </button>
+
+                <button type="button" role="tab" id="tab-rajshahi" aria-controls="panel-rajshahi" aria-selected="false" tabindex="-1" class="tab py-4 px-1
+                               rounded-xl text-xs
+                               sm:text-sm cursor-pointer">
+                    Rajshahi
+                </button>
+
+                <button type="button" role="tab" id="tab-khulna" aria-controls="panel-khulna" aria-selected="false" tabindex="-1" class="tab py-4 px-1
+                               rounded-xl text-xs
+                               sm:text-sm cursor-pointer">
+                    Khulna
+                </button>
+
+                <button type="button" role="tab" id="tab-chittagong" aria-controls="panel-chittagong" aria-selected="false" tabindex="-1" class="tab py-4 px-1
+                               rounded-xl text-xs
+                               sm:text-sm cursor-pointer">
+                    Chittagong
+                </button>
+
+            </div>
+
+            <!-- Tab Details -->
+            <div class="details relative
+                        bg-white/10 border
+                        border-white/10 rounded-2xl
+                        p-6 sm:p-9 min-h-72">
+
+                <!-- Dhaka -->
+                <section id="panel-dhaka" role="tabpanel" aria-labelledby="tab-dhaka" class="tab-content active">
+
+                    <span class="text-indigo-300
+                                 text-xs font-bold
+                                 uppercase tracking-widest">
+                        Capital City
+                    </span>
+
+                    <h2 class="text-white text-3xl
+                               font-bold mt-4 mb-3">
+                        Welcome to Dhaka
+                    </h2>
+
+                    <p class="text-indigo-200
+                              font-medium mb-4">
+                        The vibrant capital of Bangladesh
+                    </p>
+
+                    <p class="text-slate-300
+                              leading-relaxed">
+                        Discover a city where history meets modern life, with colorful streets, rich culture and unforgettable experiences.
+                    </p>
+
+                </section>
+
+                <!-- Rajshahi -->
+                <section id="panel-rajshahi" role="tabpanel" aria-labelledby="tab-rajshahi" class="tab-content" hidden>
+
+                    <span class="text-indigo-300
+                                 text-xs font-bold
+                                 uppercase tracking-widest">
+                        Silk City
+                    </span>
+
+                    <h2 class="text-white text-3xl
+                               font-bold mt-4 mb-3">
+                        Explore Rajshahi
+                    </h2>
+
+                    <p class="text-indigo-200
+                              font-medium mb-4">
+                        The beautiful silk city
+                    </p>
+
+                    <p class="text-slate-300
+                              leading-relaxed">
+                        Experience peaceful riverside views, famous mango orchards and the cultural heritage of northern Bangladesh.
+                    </p>
+
+                </section>
+
+                <!-- Khulna -->
+                <section id="panel-khulna" role="tabpanel" aria-labelledby="tab-khulna" class="tab-content" hidden>
+
+                    <span class="text-indigo-300
+                                 text-xs font-bold
+                                 uppercase tracking-widest">
+                        Nature & Adventure
+                    </span>
+
+                    <h2 class="text-white text-3xl
+                               font-bold mt-4 mb-3">
+                        Discover Khulna
+                    </h2>
+
+                    <p class="text-indigo-200
+                              font-medium mb-4">
+                        Gateway to the Sundarbans
+                    </p>
+
+                    <p class="text-slate-300
+                              leading-relaxed">
+                        Explore beautiful waterways, incredible natural landscapes and the world's largest mangrove forest.
+                    </p>
+
+                </section>
+
+                <!-- Chittagong -->
+                <section id="panel-chittagong" role="tabpanel" aria-labelledby="tab-chittagong" class="tab-content" hidden>
+
+                    <span class="text-indigo-300
+                                 text-xs font-bold
+                                 uppercase tracking-widest">
+                        Port City
+                    </span>
+
+                    <h2 class="text-white text-3xl
+                               font-bold mt-4 mb-3">
+                        Visit Chittagong
+                    </h2>
+
+                    <p class="text-indigo-200
+                              font-medium mb-4">
+                        The city of hills and sea
+                    </p>
+
+                    <p class="text-slate-300
+                              leading-relaxed">
+                        Enjoy scenic hills, coastal beauty, bustling markets and memorable adventures in southeastern Bangladesh.
+                    </p>
+
+                </section>
+
+                <!-- Progress Bar -->
+                <div class="mt-8 h-1 bg-white/10
+                            rounded-full overflow-hidden">
+
+                    <div id="progress" class="h-full w-1/4
+                                bg-indigo-300 rounded-full
+                                transition-all duration-500">
+                    </div>
+
+                </div>
+
+                <!-- Bottom Navigation -->
+                <div class="flex justify-between
+                            items-center mt-5">
+
+                    <span id="counter" class="text-slate-400 text-sm">
+                        01 / 04
+                    </span>
+
+                    <div class="flex gap-3">
+
+                        <button id="prev" type="button" aria-label="Previous city" class="w-10 h-10 rounded-full
+                                       bg-white/10 text-white
+                                       hover:bg-white/20
+                                       transition cursor-pointer">
+                            &#8592;
+                        </button>
+
+                        <button id="next" type="button" aria-label="Next city" class="w-10 h-10 rounded-full
+                                       bg-indigo-400
+                                       text-slate-900
+                                       hover:bg-indigo-300
+                                       transition cursor-pointer">
+                            &#8594;
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="text-center text-slate-400
+                  text-xs mt-8">
+            Designed with Tailwind CSS & JavaScript
+        </p>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
